@@ -22,7 +22,7 @@ Each section contains:
 ## ✅ Progress Tracker  
 
 - [x] Section 1: Offensive Security Intro  
-- [ ] Section 2: Linux Fundamentals  
+- [x] Section 2: Linux Fundamentals  
 - [ ] Section 3: Windows and AD Fundamentals  
 - [ ] Section 4: Command Line  
 - [ ] Section 5: Networking  
