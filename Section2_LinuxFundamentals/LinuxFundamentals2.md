@@ -33,7 +33,48 @@ tryhackme@linux2:~$
 * `~$` → Normal user prompt.
 
 ---
+### 😅 Common confusion related to users
 
+#### Linux Prompts & Home
+
+* `root@ip:~#` → logged in as root.
+* `bourne@ip:~$` → logged in as normal user.
+* `~` → current user’s home. (`/root` for root, `/home/username` for normal users).
+* `#` = root prompt, `$` = normal user prompt.
+
+
+#### Key Directories
+
+* `/` → top of the filesystem (everything).
+* `/home` → where normal users live (`/home/bourne`, etc).
+* `/root` → root’s private home.
+
+**Access rules:**
+
+* Normal users: full control in their own `/home`.
+* Root: can access all, including `/root`.
+
+
+#### Why below commands will fail
+
+* `cd root/` → wrong path. Needed `/root/`.
+* `sudo cd root` → `cd` is a built-in, `sudo` only works with external programs.
+* `su cd root` → tried to switch to a user named `cd root` (doesn’t exist).
+
+✅ Correct ways:
+
+* `cd /root` (as root).
+* `sudo -i` → become root, then you’re dropped in `/root`.
+* `sudo ls /root` → just list contents.
+
+
+#### Memory Trick
+
+* `/ = everything 🌍`
+* `/home = where humans live 🏡`
+* `/root = where the boss lives 👑`
+
+---
 ### ⚡ Introduction to Flags and Switches 
 
 Commands in Linux can be extended with **flags** (short form -a) and **switches** (long form --all). Same Output but notation is different.
