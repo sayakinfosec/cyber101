@@ -192,4 +192,14 @@ Host: telnet.thm
 
 → Returns webpage response.
 
+#### Telnet vs SSH 💪🏻
+| Feature            | **Telnet**                                                                  | **SSH (Secure Shell)**                                         |
+| ------------------ | --------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Purpose**        | Remote login to another device (e.g., router, server).                      | Same (remote login + secure management).                       |
+| **Encryption**     | ❌ None (sends everything in **plain text**, including username + password). | ✅ Encrypted (all communication secured).                       |
+| **Port**           | TCP **23**                                                                  | TCP **22**                                                     |
+| **Security**       | Very insecure — attackers can sniff credentials easily.                     | Secure — data protected with strong cryptography.              |
+| **Usage today**    | Almost obsolete, rarely used (only for legacy systems).                     | Standard for remote admin & widely used in IT & cybersecurity. |
+| **Extra features** | Only login + command execution.                                             | Tunneling, secure file transfer (SCP/SFTP), port forwarding.   |
+
 
