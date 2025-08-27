@@ -62,6 +62,22 @@ Some textbooks show 5 layers (add Physical).
 ### 💎 IP Addresses & Subnets 
 
 * **IPv4**: 32 bits = 4 octets (0–255 each). Example: `192.168.1.1`
+  
+#### Subnetting (Definition + Quick Math)
+
+* Definition: Subnetting is the process of dividing a larger IP network into smaller, more manageable subnetworks (subnets).
+  
+* CIDR Notation: /N → means N bits for the network, remaining bits for hosts.
+  
+* Formula: Usable hosts = 2^(host bits) - 2
+  (subtract 2 for network + broadcast addresses).
+  
+  Examples:
+```
+  /24 → 32 - 24 = 8 host bits → 2^8 - 2 = 254 usable IPs.
+  /25 → 32 - 25 = 7 host bits → 2^7 - 2 = 126 usable IPs.
+  /30 → 32 - 30 = 2 host bits → 2^2 - 2 = 2 usable IPs (used in point-to-point links).
+```
 
 #### Reserved Special Addresses (in every subnet)
 
@@ -102,6 +118,7 @@ inet 192.168.66.89/24 brd 192.168.66.255
 🤞🏻 In short:
 
 * **Network address** = label for the subnet.
+* **Subnetting** helps efficiently use IPs, control traffic, and isolate networks.
 * **Broadcast address** = shout-out to everyone in that subnet.
 * **inet** = just how Linux labels the line showing your IPv4 address.
   
