@@ -79,6 +79,39 @@ Some textbooks show 5 layers (add Physical).
   /30 → 32 - 30 = 2 host bits → 2^2 - 2 = 2 usable IPs (used in point-to-point links).
 ```
 
+#### 🎭 What is a Subnet Mask?
+
+A **subnet mask** is like a filter (mask) that separates:
+
+* The **network portion** of the IP address (fixed)  
+* The **host portion** of the IP address (devices)  
+
+It literally **"masks"** (hides) which part of the IP is **network** and which part is **hosts**.
+
+**Example:**
+
+* IP Address: `192.168.1.10`  
+* Subnet Mask: `255.255.255.0` → means `/24`  
+
+Now in binary:
+```
+IP Address: 11000000.10101000.00000001.00001010
+Subnet Mask: 11111111.11111111.11111111.00000000
+```
+
+So:
+
+* **Network** = `192.168.1.0`  
+* **Broadcast** = `192.168.1.255`  
+* **Usable Range** = `192.168.1.1 – 192.168.1.254`  
+
+✨ **Easy way to think of it:**  
+
+* **Subnet Mask** = boundary line between *network ID* and *device IDs*.  
+* `/24` → mask has **24 ones** (`255.255.255.0`)  
+* `/25` → mask has **25 ones** (`255.255.255.128`)  
+
+
 #### Reserved Special Addresses (in every subnet)
 
 * **Network Address** → *First address* in the subnet.
@@ -96,7 +129,6 @@ Some textbooks show 5 layers (add Physical).
 * `10.0.0.0 – 10.255.255.255 (/8)`
 * `172.16.0.0 – 172.31.255.255 (/12)`
 * `192.168.0.0 – 192.168.255.255 (/16)`
-  
 
 #### Checking IP
 
