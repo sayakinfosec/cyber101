@@ -12,7 +12,7 @@ It has **7 layers** (bottom → top):
 6. Presentation  
 7. Application  
 
-Mnemonic: **“Please Do Not Throw Spinach Pizza Away”**  
+Mnemonic: *“Please Do Not Throw **Spinach Pizza** Away”* 😂 
 
 #### Layer Details
 - **Layer 1: Physical** → Mediums (cables, WiFi bands, optical fiber). Transmission of bits (0s & 1s).  
