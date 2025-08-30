@@ -1,4 +1,4 @@
-## Wireshark- The Basics  
+## Wireshark - The Basics  
 
 ### **Definition:**  
 Wireshark is a free, open-source network packet analyser. It captures, inspects, and dissects network traffic but does **not** block/modify packets (not an IDS).  
