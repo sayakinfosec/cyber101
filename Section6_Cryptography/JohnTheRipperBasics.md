@@ -247,3 +247,194 @@ Joker:7bf6d9bb82bed1302f331fc6b816aada
 ```
 
 ✅ **Answer (Task 07):** Joker’s password = `Jok3r`
+
+---
+
+### 🔹 Custom Rules
+
+#### What are Custom Rules?
+Custom rules in **John the Ripper** allow us to define **patterns** that mimic how users typically create passwords.  
+This lets us **exploit password complexity predictability** (like capital letters at the start, numbers/symbols at the end, etc.).
+
+#### Examples of Common Custom Rule Modifiers
+- `Az` → Append characters at the end  
+- `A0` → Prepend characters at the beginning  
+- `c` → Capitalises the first character  
+
+Character sets inside brackets `[]`:
+- `[0-9]` → Numbers 0–9  
+- `[A-Z]` → Uppercase letters  
+- `[a-z]` → Lowercase letters  
+- `[!£$%@]` → Symbols  
+
+#### Example: PoloPassword Rule
+```
+
+\[List.Rules\:PoloPassword]
+cAz"\[0-9]\[!£\$%@]"
+
+````
+
+This means:
+- `c` → Capitalise first letter  
+- `Az"[0-9]` → Append a number  
+- `Az"[!£$%@]"` → Append one of the listed symbols  
+
+So, `polopassword` → `Polopassword1!`
+
+#### Using Custom Rules
+We can run custom rules with:
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt --rule=PoloPassword hash.txt
+````
+
+#### Questions & Answers
+
+**Q1: What do custom rules allow us to exploit?**
+👉 Password complexity predictability
+
+**Q2: What rule would we use to add all capital letters to the end of the word?**
+👉 `Az"[A-Z]"`
+
+**Q3: What flag would we use to call a custom rule called THMRules?**
+👉 `--rule=THMRules`
+
+#### Cracking Password Protected Zip Files
+
+We can also use **John the Ripper** to crack password-protected zip files.
+This involves two steps:
+
+1. **Extract the hash from the zip file** using `zip2john`
+2. **Crack it with John**
+
+#### Step 1: Extract Hash with zip2john
+
+```bash
+zip2john secure.zip > secureZipHash.txt
+```
+
+#### Step 2: Crack with John
+
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt secureZipHash.txt
+```
+
+After some time, John finds the password:
+
+```
+pass123
+```
+
+#### Step 3: Unzip with Found Password
+
+```bash
+unzip secure.zip
+```
+
+Terminal session:
+
+```bash
+user@ip-10-201-117-217:~/John-the-Ripper-The-Basics/Task09$ unzip secure.zip 
+Archive:  secure.zip
+[secure.zip] zippy/flag.txt password: 
+ extracting: zippy/flag.txt          
+```
+
+#### Step 4: Retrieve the Flag
+
+```bash
+cd zippy
+cat flag.txt
+```
+
+Terminal session:
+
+```bash
+user@ip-10-201-117-217:~/John-the-Ripper-The-Basics/Task09/zippy$ cat flag.txt 
+THM{w3ll_d0n3_h4sh_r0y4l}
+```
+
+#### Questions & Answers
+
+**Q1: What is the password for the secure.zip file?**
+👉 `pass123`
+
+**Q2: What is the contents of the flag inside the zip file?**
+👉 `THM{w3ll_d0n3_h4sh_r0y4l}`
+
+---
+
+### 🔹 Cracking Password-Protected RAR Archives
+
+Cracking a Password-Protected RAR Archive  
+We can use a similar process to the one we used for Zip files to obtain the password for RAR archives. RAR archives are compressed files created by the WinRAR archive manager. Like Zip files, they compress folders and files.
+
+#### Rar2John
+Just like the `zip2john` tool, we use the `rar2john` tool to convert the RAR file into a hash format that John can understand.  
+
+**Basic syntax:**
+```bash
+rar2john [rar file] > [output file]
+````
+
+* `rar2john`: Invokes the rar2john tool
+* `[rar file]`: Path to the RAR file
+* `>`: Redirects the output
+* `[output file]`: File to store the hash
+
+**Example usage:**
+
+```bash
+rar2john rarfile.rar > rar_hash.txt
+```
+
+#### Cracking
+
+We can now take the hash output file and crack it with John:
+
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt rar_hash.txt
+```
+
+
+#### Practical
+
+RAR file location:
+`~/John-the-Ripper-The-Basics/Task10/`
+
+**Q1. What is the password for the secure.rar file?**
+`password` ✅
+
+**Q2. What are the contents of the flag inside the rar file?**
+`THM{r4r_4rch1ve5_th15_t1m3}` ✅
+
+
+#### Important Commands
+
+**Step 1: Crack the password**
+
+```bash
+$ ls
+secure.rar
+
+$ rar2john secure.rar > secureRarFile.txt
+OK.
+
+$ ls
+secure.rar  secureRarFile.txt
+
+$ john --wordlist=/usr/share/wordlists/rockyou.txt secureRarFile.txt
+...
+...
+password
+```
+
+**Step 2: Extract the RAR archive**
+
+```bash
+$ unrar x secure.rar
+OK.
+
+$ ls
+secure.rar  secureRarFile.txt  flag.txt
+```
