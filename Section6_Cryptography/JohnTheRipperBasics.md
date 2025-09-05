@@ -438,3 +438,60 @@ OK.
 $ ls
 secure.rar  secureRarFile.txt  flag.txt
 ```
+
+---
+
+### 🔹Cracking SSH Keys with John
+
+#### Cracking SSH Key Passwords
+SSH private keys (`id_rsa`) are often used instead of passwords for authentication over SSH. However, these private keys can themselves be protected with a passphrase. John can crack such passphrases and allow us to use the key for authentication.
+
+#### SSH2John
+We first need to convert the `id_rsa` file into a hash format that John understands. This is done using the `ssh2john` (or `ssh2john.py`) tool.
+
+**Syntax:**
+```
+ssh2john \[id_rsa private key file] > \[output file]
+```
+
+- `ssh2john`: Invokes the tool  incase its not installed we used the python version from /opt/john/ssh2john.py
+- `[id_rsa private key file]`: The SSH private key file (id_rsa)  
+- `>`: Redirects output into a file  
+- `[output file]`: Where the converted hash will be saved  
+
+**Example Usage:**
+```
+/opt/john/ssh2john.py id_rsa > id_rsa_hash.txt
+```
+
+#### Cracking
+Once converted, use John with a wordlist to crack the passphrase:
+```
+john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa_hash.txt
+```
+
+#### Practical
+- Location of the file: `~/John-the-Ripper-The-Basics/Task11/`  
+- Cracked password: **mango**
+
+#### Original Terminal Output
+```
+user\@ip-10-201-117-217:~~/John-the-Ripper-The-Basics/Task11\$ ls
+id_rsa
+user\@ip-10-201-117-217:~~/John-the-Ripper-The-Basics/Task11\$ /opt/john/ssh2john.py id_rsa > id_rsa_hash.txt
+user\@ip-10-201-117-217:~~/John-the-Ripper-The-Basics/Task11\$ ls
+id_rsa  id_rsa_hash.txt
+user\@ip-10-201-117-217:~~/John-the-Ripper-The-Basics/Task11\$ john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa_hash.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH, SSH private key \[RSA/DSA/EC/OPENSSH 32/64])
+Cost 1 (KDF/cipher \[0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 0 for all loaded hashes
+Cost 2 (iteration count) is 1 for all loaded hashes
+Will run 2 OpenMP threads
+Note: Passwords longer than 10 \[worst case UTF-8] to 32 \[ASCII] rejected
+Press 'q' or Ctrl-C to abort, 'h' for help, almost any other key for status
+mango            (id_rsa)
+1g 0:00:00:00 DONE (2025-09-05 11:52) 50.00g/s 214400p/s 214400c/s 214400C/s praise..mango
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+user\@ip-10-201-117-217:\~/John-the-Ripper-The-Basics/Task11\$
+```
