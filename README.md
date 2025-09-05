@@ -25,7 +25,7 @@ Each section contains:
 - [x] Section 2: Linux Fundamentals  
 - [x] Section 3: Windows and AD Fundamentals  
 - [x] Section 4: Command Line  
-- [ ] Section 5: Networking  
+- [x] Section 5: Networking  
 - [ ] Section 6: Cryptography  
 - [ ] Section 7: Exploitation Basics  
 - [ ] Section 8: Web Hacking  
