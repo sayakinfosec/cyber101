@@ -26,7 +26,7 @@ Each section contains:
 - [x] Section 3: Windows and AD Fundamentals  
 - [x] Section 4: Command Line  
 - [x] Section 5: Networking  
-- [ ] Section 6: Cryptography  
+- [x] Section 6: Cryptography  
 - [ ] Section 7: Exploitation Basics  
 - [ ] Section 8: Web Hacking  
 - [ ] Section 9: Offensive Security Tooling  
