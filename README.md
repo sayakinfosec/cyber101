@@ -27,7 +27,7 @@ Each section contains:
 - [x] Section 4: Command Line  
 - [x] Section 5: Networking  
 - [x] Section 6: Cryptography  
-- [ ] Section 7: Exploitation Basics  
+- [x] Section 7: Exploitation Basics  
 - [ ] Section 8: Web Hacking  
 - [ ] Section 9: Offensive Security Tooling  
 - [ ] Section 10: Defensive Security  
