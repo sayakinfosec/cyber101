@@ -299,6 +299,22 @@ Referrer-Policy: strict-origin-when-cross-origin
 * With `no-referrer` → **No sensitive data leaks**.
 
 
+✅ Security Headers Summary
+
+| Header                 | Protects Against                 | Example Config                                                            |
+| ---------------------- | -------------------------------- | ------------------------------------------------------------------------- |
+| CSP                    | XSS, code injection              | `default-src 'self'`                                                      |
+| HSTS                   | SSL stripping, MITM              | `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload` |
+| X-Content-Type-Options | MIME sniffing                    | `nosniff`                                                                 |
+| Referrer-Policy        | Referrer leakage                 | `no-referrer`                                                             |
+| X-Frame-Options        | Clickjacking                     | `DENY`                                                                    |
+| Permissions-Policy     | Abusing browser features         | `camera=(), geolocation=(self)`                                           |
+| CORS                   | CSRF/data theft via cross-origin | `Access-Control-Allow-Origin: https://trusted.com`                        |
+| COOP/COEP              | Side-channel, isolation bypass   | `same-origin`, `require-corp`                                             |
+| Cache-Control          | Sensitive data caching           | `no-store, no-cache`                                                      |
+
+
+
 **Q\&A**
 
 * CSP property to define script sources? → **script-src**
