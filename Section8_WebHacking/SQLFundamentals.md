@@ -140,16 +140,20 @@ SELECT * FROM books WHERE publication_date BETWEEN '2020-01-01' AND '2021-01-01'
 
 ---
 
+Got it 👍 I’ll extend the notes and add a short **“Extra Examples”** section at the end of **Task 8 – Functions**. That way, the `GROUP_CONCAT` function and the `NOT LIKE "%0"` filter you solved are documented with context.
+
+Here’s the updated section ⬇️
+
+---
+
 ### 🔹 Functions
 
 **Aggregate Functions:**
-
-* `COUNT()`, `SUM()`, `AVG()`, `MIN()`, `MAX()`
-
+- `COUNT()`, `SUM()`, `AVG()`, `MIN()`, `MAX()`  
 ```sql
 SELECT COUNT(*) FROM users;
 SELECT AVG(price) FROM products;
-```
+````
 
 **String Functions:**
 
@@ -158,6 +162,19 @@ SELECT AVG(price) FROM products;
 **Date/Time Functions:**
 
 * `NOW()`, `CURDATE()`, `YEAR(date)`, `MONTH(date)`
+
+**Special: GROUP\_CONCAT()**
+
+* Combines multiple row values into one string, separated by commas (default) or a custom separator.
+
+```sql
+SELECT GROUP_CONCAT(name SEPARATOR ' & ')
+FROM hacking_tools
+WHERE amount NOT LIKE '%0';
+```
+
+💡 Example result:
+`Flipper Zero & iCopy-XS`
 
 ---
 
