@@ -1,7 +1,5 @@
 ## SQLMap
 
----
-
 ### Overview
 
 SQL injection (SQLi) is a common and dangerous web vulnerability where unsanitized user input alters SQL queries executed by the back-end DBMS. SQLMap is an automated, command-line tool that helps detect and exploit SQLi vulnerabilities across many DBMS types (MySQL, PostgreSQL, MSSQL, SQLite, etc.).
@@ -151,11 +149,4 @@ Available databases [2]:
 sqlmap -u http://sqlmaptesting.thm/search/cat=1 -D members --tables
 ```
 
----
-
-### Further reading / next steps
-
-* Practice on intentionally vulnerable labs (e.g., OWASP Juice Shop, DVWA) or your lab environment.
-* Learn to capture and sanitize HTTP requests (Burp Suite, browser devtools) for `-r` usage.
-* Study manual SQLi techniques to understand what SQLMap automates.
 
