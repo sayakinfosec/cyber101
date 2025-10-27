@@ -216,5 +216,3 @@ Linux offers built-in firewall tools based on the **Netfilter** framework.
 - They enforce **rules** to control data flow.  
 - Available on both **Windows (Defender Firewall)** and **Linux (iptables/ufw)**.  
 - Essential for protecting against **unauthorized access and attacks**.
-
----
