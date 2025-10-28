@@ -223,6 +223,3 @@ This command scans the recorded packets in the PCAP and displays detections on t
 
 - **What is the file name that contains custom rules for Snort?**  
   ✅ `local.rules`
-
----
-
