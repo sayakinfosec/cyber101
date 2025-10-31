@@ -102,6 +102,18 @@ To explore more about CAPA and strengthen your understanding:
 
 CAPA is best combined with other static and dynamic tools (strings, PEStudio, IDA, or sandboxes like Any.Run) for holistic analysis.
 
+💻 CAPA Web Explorer (Highly Recommended):
+Instead of running CAPA from the terminal, most analysts use the CAPA Web Explorer - a visual, interactive interface hosted at https://mandiant.github.io/capa/explorer/#/.
+It allows you to:
+
+Upload your CAPA output (JSON or text) and explore it visually.
+
+Filter by namespaces, MITRE mappings, or rule categories.
+
+Click through capabilities and evidence for an intuitive investigation flow.
+
+This makes learning and reviewing CAPA results much easier, especially when you’re just starting out or handling large, complex samples.
+
 ---
 
 ### Conclusion
