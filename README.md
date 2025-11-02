@@ -30,7 +30,7 @@ Each section contains:
 - [x] Section 7: Exploitation Basics  
 - [x] Section 8: Web Hacking  
 - [x] Section 9: Offensive Security Tooling  
-- [ ] Section 10: Defensive Security  
+- [x] Section 10: Defensive Security  
 - [ ] Section 11: Security Solutions  
 - [ ] Section 12: Defensive Security Tooling  
 - [ ] Section 13: Build Your Cyber Security Career  
