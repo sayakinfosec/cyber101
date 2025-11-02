@@ -56,6 +56,12 @@ Use CyberChef's **Find / Replace** twice to remove the obfuscating `*` and `^` c
 
 ### 2 - Fake Network for Dynamic Analysis (INetSim)
 
+Objective: create a fake internet on your REMnux VM so suspicious software (or a test machine) can try to contact the Internet and you can safely observe what it does (downloads, DNS requests, HTTP calls) without exposing your real network.
+
+Think of INetSim as a fake mall where you put the suspicious program - everything the program shops for (downloads, DNS lookups, etc.) happens inside the mall and is recorded for you, instead of going out into the real world.
+
+Why: malware often reaches out to servers to download more payloads or to phone home. INetSim simulates those servers and logs everything so you can see the malware’s network behaviour safely.
+
 **Tool:** `INetSim` - Internet Services Simulation Suite; used to simulate common services (HTTP, HTTPS, DNS, FTP, SMTP, etc.) and capture network activity from malware in an isolated environment.
 
 ### Setup and run
@@ -112,6 +118,12 @@ sudo wget https://10.201.84.158/flag.txt --no-check-certificate
 Flag: `Tryhackme{remnux_edition}`
 
 From the report, the method used to retrieve `flag.txt` was: `GET`.
+
+Quick Recap:
+* Goal: safely observe network behaviour of malware.
+* Tool: INetSim imitates Internet services and logs requests.
+* Action: configure it to your VM IP, run it, trigger requests from another VM, read the report.
+* Result: you know what the malware tried to download/contact (and how).
 
 ---
 
