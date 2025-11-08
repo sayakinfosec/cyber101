@@ -33,7 +33,7 @@ Each section contains:
 - [x] Section 10: Defensive Security  
 - [X] Section 11: Security Solutions  
 - [x] Section 12: Defensive Security Tooling  
-- [ ] Section 13: Build Your Cyber Security Career  
+- [x] Section 13: Build Your Cyber Security Career  
 
 ---
 
